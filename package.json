@@ -1,0 +1,16 @@
+{
+  "name": "influxdb-ui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "influxui-router.js",
+  "scripts": {
+    "install": "npm install",
+    "start": "node influxui-router.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "influxdb-nodejs": "^3.1.0"
+  }
+}
