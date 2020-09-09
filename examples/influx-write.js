@@ -3,7 +3,6 @@
 
 const Influx = require('influxdb-nodejs');
 const client = new Influx('http://10.0.0.198:8086/new');
-
 // i --> integer    // s --> string
 // f --> float      // b --> boolean
 const fieldSchema = {
@@ -50,9 +49,12 @@ const fieldSchema = {
     p8status: 'b',
 };
 
+// Timestamp for which returns current date and time
+var noww = new Date().toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+console.log('[ Starting INFLUX WRITE: ', noww, ' ]')
+
 const tagSchema = {
-    rotation: [],
-    batch: [],
+    
 };
 
 client.schema('payload', fieldSchema, tagSchema, {
@@ -63,60 +65,61 @@ client.schema('payload', fieldSchema, tagSchema, {
 writePayload = () => {
     client.write('payload')
         .tag({
-            rotation: 1,
         })
         .field({
-            rotation: generateRandomInteger(1, 10),
-            batch: generateRandomInteger(0, 20),
-            p1pre: generateRandomInteger(0, 100),
-            p2pre: generateRandomInteger(0, 100),
-            p3pre: generateRandomInteger(0, 100),
-            p4pre: generateRandomInteger(0, 100),
-            p5pre: generateRandomInteger(0, 100),
-            p6pre: generateRandomInteger(0, 100),
-            p7pre: generateRandomInteger(0, 100),
-            p8pre: generateRandomInteger(0, 100),
-            p8pre: generateRandomInteger(0, 100),
-
-            p1main: generateRandomInteger(0, 100),
-            p2main: generateRandomInteger(0, 100),
-            p3main: generateRandomInteger(0, 100),
-            p4main: generateRandomInteger(0, 100),
-            p5main: generateRandomInteger(0, 100),
-            p6main: generateRandomInteger(0, 100),
-            p7main: generateRandomInteger(0, 100),
-            p8main: generateRandomInteger(0, 100),
-            p8main: generateRandomInteger(0, 100),
-
-            p1ejn: generateRandomInteger(0, 100),
-            p2ejn: generateRandomInteger(0, 100),
-            p3ejn: generateRandomInteger(0, 100),
-            p4ejn: generateRandomInteger(0, 100),
-            p5ejn: generateRandomInteger(0, 100),
-            p6ejn: generateRandomInteger(0, 100),
-            p7ejn: generateRandomInteger(0, 100),
-            p8ejn: generateRandomInteger(0, 100),
-            p8ejn: generateRandomInteger(0, 100),
-
-            preavg: generateRandomInteger(0, 100),
-            mainavg: generateRandomInteger(0, 100),
-            ejnavg: generateRandomInteger(0, 100),
-
-            p1status: true,
-            p2status: true,
-            p3status: true,
-            p4status: true,
-            p5status: true,
-            p6status: true,
-            p7status: true,
-            p8status: true,
-            p8status: true,
-
+            batch: generateRandomInteger(0, 20),    // 1
+            ejnavg: generateRandomInteger(0, 100),  // 2
+            mainavg: generateRandomInteger(0, 100), // 3
+            
+            p1ejn: generateRandomInteger(0, 100),   // 4
+            p1main: generateRandomInteger(0, 100),  // 5
+            p1pre: generateRandomInteger(0, 100),   // 6
+            p1status: true,                         // 7
+            
+            p2ejn: generateRandomInteger(0, 100),   // 8
+            p2main: generateRandomInteger(0, 100),  // 9
+            p2pre: generateRandomInteger(0, 100),   // 10
+            p2status: true,                         // 11
+            
+            p3ejn: generateRandomInteger(0, 100),   // 12
+            p3main: generateRandomInteger(0, 100),  // 13
+            p3pre: generateRandomInteger(0, 100),   // 14
+            p3status: true,                         // 15
+            
+            p4ejn: generateRandomInteger(0, 100),   // 16
+            p4main: generateRandomInteger(0, 100),  // 17
+            p4pre: generateRandomInteger(0, 100),   // 18
+            p4status: true,                         // 19
+            
+            p5ejn: generateRandomInteger(0, 100),   // 20
+            p5main: generateRandomInteger(0, 100),  // 21
+            p5pre: generateRandomInteger(0, 100),   // 22
+            p5status: true,                         // 23
+            
+            p6ejn: generateRandomInteger(0, 100),   // 24
+            p6main: generateRandomInteger(0, 100),  // 25
+            p6pre: generateRandomInteger(0, 100),   // 26
+            p6status: true,                         // 27
+            
+            p7ejn: generateRandomInteger(0, 100),   // 28
+            p7main: generateRandomInteger(0, 100),  // 29
+            p7pre: generateRandomInteger(0, 100),   // 30
+            p7status: true,                         // 31
+            
+            p8ejn: generateRandomInteger(0, 100),   // 32
+            p8main: generateRandomInteger(0, 100),  // 33
+            p8pre: generateRandomInteger(0, 100),   // 34
+            p8status: true,                         // 35
+            
+            preavg: generateRandomInteger(0, 100),  // 36
+            rotation: generateRandomInteger(1, 10), // 37
         })
-        .then(() => console.info('write point success'))
+        
+        .then(() => console.info('[ WRITE SUCESSFUL ]'))
         .catch(console.error);
-}
-
+    }
+    
+    
 setInterval(() => {
     writePayload();
 }, 1000);
@@ -124,5 +127,3 @@ setInterval(() => {
 function generateRandomInteger(min, max) {
     return Math.floor(min + Math.random() * (max + 1 - min))
 }
-
-
