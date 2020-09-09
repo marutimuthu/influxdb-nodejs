@@ -50,11 +50,10 @@ let rotation = 37
 
 // select * from "payload" where "batch" = 7 and "rotation" = 7
 client.query('payload')
-    .where('batch', 12)
+    .where('batch', 4)
     // .where('rotation', 9)
     .then(data => {
         let payload = Object.values(data.results[0].series[0].values[0])
         console.log(`[ RESPONSE:  ${payload[rotation]} ]`)
     })
     .catch(console.error);
-
