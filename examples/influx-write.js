@@ -3,9 +3,14 @@
 
 const Influx = require('influxdb-nodejs');
 const client = new Influx('http://10.0.0.198:8086/new');
+client.createDatabase()
+    .then(() => console.info('[ create database success ]'))
+    .catch(err => console.error(`[ create database fail ], ${err.message}`));
+
 // i --> integer    // s --> string
 // f --> float      // b --> boolean
 const fieldSchema = {
+    name: 's',
     rotation: 'i',
     batch: 'i',
     p1pre: 'f',
@@ -113,6 +118,7 @@ writePayload = () => {
             
             preavg: generateRandomInteger(0, 100),  // 36
             rotation: generateRandomInteger(1, 10), // 37
+            name: "MARUTI"
         })
         
         .then(() => console.info('[ WRITE SUCESSFUL ]'))

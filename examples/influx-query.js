@@ -3,14 +3,14 @@
 // Query Documentation: https://docs.influxdata.com/influxdb/v1.8/query_language/explore-data/
 
 const Influx = require('influxdb-nodejs');
-const client = new Influx('http://10.0.0.198:8086/new');
+const client = new Influx('http://localhost:8086/new');
 
 // Timestamp for which returns current date and time
 var noww = new Date().toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
 console.log(`[ INITIATING INFLUX QUERY: ${noww} ]`)
 
 // Assigning variable as per array loacation
-let batch = 1
+// let batch = fruits.indexOf("Apple");
 let ejnavg = 2
 let mainavg = 3
 let p1ejn = 4
@@ -48,12 +48,44 @@ let p8status = 35
 let preavg = 36
 let rotation = 37
 
-// select * from "payload" where "batch" = 7 and "rotation" = 7
-client.query('payload')
-    .where('batch', 4)
-    // .where('rotation', 9)
+//select * from "payload" where "batch" = 7 and "rotation" = 7
+// client.query('payload')
+//     .where('batch', 4)
+//     // .where('rotation', 9)
+//     .then(data => {
+//         let payload = Object.values(data.results[0].series[0].values[0])
+//         console.log(`[ RESPONSE:  ${payload[rotation]} ]`)
+//     })
+//     .catch(console.error);
+
+var previousbatch
+var previousoperator
+var previousmachineid
+var previousrecipieid
+
+// client.showMeasurements()
+//     .then(data => {
+//         var newww = Object.values(data)
+//         previousbatch = newww[newww.length - 1]
+//         console.log(previousbatch)
+//     })
+//     .catch(console.error);
+
+
+client.showFieldKeys(previousbatch)
     .then(data => {
-        let payload = Object.values(data.results[0].series[0].values[0])
-        console.log(`[ RESPONSE:  ${payload[rotation]} ]`)
+        var fieldkeys = Array(data[0].values[0])
+        var result = fieldkeys.filter(obj => {
+            return obj.key == 'batch'
+        })
+        console.log(result[0].type)
     })
     .catch(console.error);
+
+
+// client.showDatabases()
+//     .then(console.info)
+//     .catch(console.error);
+
+
+
