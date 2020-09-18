@@ -3,16 +3,18 @@
 
 const Influx = require('influxdb-nodejs');
 const client = new Influx('http://10.0.0.198:8086/new');
-client.createDatabase()
-    .then(() => console.info('[ create database success ]'))
-    .catch(err => console.error(`[ create database fail ], ${err.message}`));
+// client.createDatabase()
+//     .then(() => console.info('[ create database success ]'))
+//     .catch(err => console.error(`[ create database fail ], ${err.message}`));
+
+
+var batch = "HER";
 
 // i --> integer    // s --> string
 // f --> float      // b --> boolean
 const fieldSchema = {
-    name: 's',
     rotation: 'i',
-    batch: 'i',
+    batch: 's',
     p1pre: 'f',
     p2pre: 'f',
     p3pre: 'f',
@@ -62,17 +64,11 @@ const tagSchema = {
     
 };
 
-client.schema('payload', fieldSchema, tagSchema, {
-    // default is false
-    stripUnknown: false,
-});
-
 writePayload = () => {
-    client.write('payload')
+    client.write(`${batch}.machine`)
         .tag({
         })
         .field({
-            batch: generateRandomInteger(0, 20),    // 1
             ejnavg: generateRandomInteger(0, 100),  // 2
             mainavg: generateRandomInteger(0, 100), // 3
             
