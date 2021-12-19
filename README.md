@@ -6,10 +6,11 @@ Complete InfluxDB V.1.8 solution with UI and Node.js Examples
 
 # Getting Started:
 
-It is assumed that you have an influx instance running on your local system.
+Install script: npm run install
+Start script: npm run start
 
-Install: npm run install
-Start: npm run start
+This project will let you launch a GUI of the DB as well as run a backend server for InfluxDB on nodejs.
 
+Reference:
 [UI](https://github.com/danesparza/influxdb-ui)
 [influxdb-nodejs](https://github.com/vicanso/influxdb-nodejs)
